@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEE Study Portal</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f9;
+    margin:0;
+}
+header{
+    background:#1e3a8a;
+    color:white;
+    text-align:center;
+    padding:15px;
+}
+.container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+    padding:20px;
+}
+.module{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+h2{
+    color:#1e3a8a;
+}
+iframe{
+    width:100%;
+    height:300px;
+    border:none;
+    margin-top:10px;
+}
+input{
+    width:100%;
+    margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>JEE Study Dashboard</h1>
+</header>
+
+<div class="container">
+
+<div class="module">
+<h2>📘 Mathematics</h2>
+<input type="file" accept=".pdf"
+onchange="loadPDF(event,'mathPdf')">
+<iframe id="mathPdf"></iframe>
+</div>
+
+<div class="module">
+<h2>⚛ Physics</h2>
+<input type="file" accept=".pdf"
+onchange="loadPDF(event,'physicsPdf')">
+<iframe id="physicsPdf"></iframe>
+</div>
+
+<div class="module">
+<h2>🧪 Chemistry</h2>
+<input type="file" accept=".pdf"
+onchange="loadPDF(event,'chemPdf')">
+<iframe id="chemPdf"></iframe>
+</div>
+
+</div>
+
+<script>
+function loadPDF(event,id){
+    const file = event.target.files[0];
+    if(file){
+        document.getElementById(id).src =
+        URL.createObjectURL(file);
+    }
+}
+</script>
+
+</body>
+</html>
+<!-- TEST MODULE -->
+
+<div class="module">
+<h2>📝 Test Portal</h2>
+
+<label>Select Test PDF:</label>
+<input type="file" accept=".pdf"
+onchange="loadPDF(event,'testPdf')">
+
+<br><br>
+
+<label>Test Duration (Minutes):</label>
+<input type="number" id="testTime"
+value="180" min="1">
+
+<br><br>
+
+<button onclick="startTest()">
+🚀 Start Test
+</button>
+
+<h3 id="timer">
+03:00:00
+</h3>
+
+<iframe id="testPdf"></iframe>
+</div>
+
+<script>
+
+let countdown;
+
+function startTest(){
+
+clearInterval(countdown);
+
+let minutes =
+parseInt(document.getElementById("testTime").value);
+
+let time = minutes * 60;
+
+countdown = setInterval(function(){
+
+let hrs = Math.floor(time/3600);
+let mins = Math.floor((time%3600)/60);
+let secs = time%60;
+
+document.getElementById("timer").innerHTML =
+String(hrs).padStart(2,'0') + ":" +
+String(mins).padStart(2,'0') + ":" +
+String(secs).padStart(2,'0');
+
+if(time<=0){
+clearInterval(countdown);
+
+alert("⏰ Time Over! Test Finished.");
+
+document.getElementById("timer").innerHTML =
+"TEST ENDED";
+}
+
+time--;
+
+},1000);
+
+}
+
+</script>
+<div class="module">
+<h2>🎥 Distraction Free Study Video</h2>
+
+<input type="text"
+id="ytLink"
+placeholder="Paste YouTube Video Link">
+
+<br><br>
+
+<button onclick="loadVideo()">
+▶ Load Video
+</button>
+
+<br><br>
+
+<iframe id="studyVideo"
+width="100%"
+height="315"
+allowfullscreen>
+</iframe>
+</div>
+
+<script>
+function loadVideo(){
+
+let url =
+document.getElementById("ytLink").value;
+
+let id = "";
+
+if(url.includes("v=")){
+id = url.split("v=")[1].split("&")[0];
+}
+else if(url.includes("youtu.be/")){
+id = url.split("youtu.be/")[1];
+}
+
+document.getElementById("studyVideo").src =
+"https://www.youtube.com/embed/" +
+id +
+"?rel=0&modestbranding=1";
+}
+</script>
+<div class="module">
+<h2>🎵 Motivation Music</h2>
+
+<input type="file"
+accept="audio/*"
+onchange="loadMusic(event)">
+
+<br><br>
+
+<audio id="musicPlayer" controls>
+Your browser does not support audio.
+</audio>
+
+</div>
+
+<script>
+
+function loadMusic(event){
+
+const file = event.target.files[0];
+
+if(file){
+
+const url = URL.createObjectURL(file);
+
+document.getElementById("musicPlayer").src = url;
+
+}
+
+}
+
+</script>
+<audio id="musicPlayer" controls loop>
+</audio>
+<div class="module">
+<h2>🎮 Tic Tac Toe</h2>
+
+<div id="board">
+<button class="cell" onclick="play(this)"> </button>
+<button class="cell" onclick="play(this)"> </button>
+<button class="cell" onclick="play(this)"> </button>
+
+<button class="cell" onclick="play(this)"> </button>
+<button class="cell" onclick="play(this)"> </button>
+<button class="cell" onclick="play(this)"> </button>
+
+<button class="cell" onclick="play(this)"> </button>
+<button class="cell" onclick="play(this)"> </button>
+<button class="cell" onclick="play(this)"> </button>
+</div>
+
+<h3 id="status">Player X Turn</h3>
+
+<button onclick="resetGame()">🔄 Restart</button>
+</div>
+
+<style>
+#board{
+display:grid;
+grid-template-columns:repeat(3,80px);
+gap:5px;
+justify-content:center;
+}
+
+.cell{
+width:80px;
+height:80px;
+font-size:30px;
+font-weight:bold;
+cursor:pointer;
+}
+</style>
+
+<script>
+let currentPlayer = "X";
+
+function play(cell){
+
+if(cell.innerHTML !== "") return;
+
+cell.innerHTML = currentPlayer;
+
+currentPlayer =
+currentPlayer === "X" ? "O" : "X";
+
+document.getElementById("status").innerHTML =
+"Player " + currentPlayer + " Turn";
+}
+
+function resetGame(){
+
+let cells =
+document.querySelectorAll(".cell");
+
+cells.forEach(cell => cell.innerHTML = "");
+
+currentPlayer = "X";
+
+document.getElementById("status").innerHTML =
+"Player X Turn";
+}
+</script>
+<style>
+body::before{
+    content:"Umesh Yadav";
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) rotate(-30deg);
+    font-size:60px;
+    color:rgba(0,0,0,0.05);
+    font-weight:bold;
+    pointer-events:none;
+    z-index:-1;
+}
+</style>
