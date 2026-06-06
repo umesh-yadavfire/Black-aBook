@@ -401,4 +401,57 @@ document.getElementById("spotifyLink").value = "";
 .wm9{top:85%;left:70%;animation-delay:16s;}
 .wm10{top:95%;left:90%;animation-delay:18s;}
 </style>
+<div class="module">
+<h2>📘 Mathematics PDF Library</h2>
+
+<h3>PDF 1</h3>
+<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf1')">
+<iframe id="pdf1" width="100%" height="250"></iframe>
+
+<h3>PDF 2</h3>
+<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf2')">
+<iframe id="pdf2" width="100%" height="250"></iframe>
+
+<h3>PDF 3</h3>
+<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf3')">
+<iframe id="pdf3" width="100%" height="250"></iframe>
+
+<h3>PDF 4</h3>
+<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf4')">
+<iframe id="pdf4" width="100%" height="250"></iframe>
+
+<h3>PDF 5</h3>
+<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf5')">
+<iframe id="pdf5" width="100%" height="250"></iframe>
+
+<h3>PDF 6</h3>
+<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf6')">
+<iframe id="pdf6" width="100%" height="250"></iframe>
+
+<h3>PDF 7</h3>
+<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf7')">
+<iframe id="pdf7" width="100%" height="250"></iframe>
+
+<h3>PDF 8</h3>
+<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf8')">
+<iframe id="pdf8" width="100%" height="250"></iframe>
+
+<h3>PDF 9</h3>
+<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf9')">
+<iframe id="pdf9" width="100%" height="250"></iframe>
+
+<h3>PDF 10</h3>
+<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf10')">
+<iframe id="pdf10" width="100%" height="250"></iframe>
+</div>
+
+<script>
+function loadPDF(event,id){
+    const file = event.target.files[0];
+    if(file){
+        document.getElementById(id).src =
+        URL.createObjectURL(file);
+    }
+}
+</script>
 
