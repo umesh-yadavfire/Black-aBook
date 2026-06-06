@@ -315,3 +315,46 @@ body::before{
     z-index:-1;
 }
 </style>
+<div class="module">
+<h2>🎵 Spotify Study Playlist</h2>
+
+<input type="text" id="spotifyLink"
+placeholder="Paste Spotify Track/Playlist Link">
+
+<button onclick="addSpotify()">
+➕ Add Spotify
+</button>
+
+<div id="spotifyContainer"></div>
+</div>
+
+<script>
+function addSpotify(){
+
+let url = document.getElementById("spotifyLink").value.trim();
+
+if(!url){
+alert("Paste a Spotify link first!");
+return;
+}
+
+let embedUrl = url.replace(
+"https://open.spotify.com/",
+"https://open.spotify.com/embed/"
+);
+
+let iframe = document.createElement("iframe");
+
+iframe.src = embedUrl;
+iframe.width = "100%";
+iframe.height = "152";
+iframe.loading = "lazy";
+iframe.allow =
+"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
+
+document.getElementById("spotifyContainer")
+.appendChild(iframe);
+
+document.getElementById("spotifyLink").value = "";
+}
+</script>
