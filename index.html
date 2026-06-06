@@ -358,3 +358,47 @@ document.getElementById("spotifyContainer")
 document.getElementById("spotifyLink").value = "";
 }
 </script>
+<!-- Moving Watermarks -->
+<div class="watermark wm1">Umesh Yadav</div>
+<div class="watermark wm2">Umesh Yadav</div>
+<div class="watermark wm3">Umesh Yadav</div>
+<div class="watermark wm4">Umesh Yadav</div>
+<div class="watermark wm5">Umesh Yadav</div>
+<div class="watermark wm6">Umesh Yadav</div>
+<div class="watermark wm7">Umesh Yadav</div>
+<div class="watermark wm8">Umesh Yadav</div>
+<div class="watermark wm9">Umesh Yadav</div>
+<div class="watermark wm10">Umesh Yadav</div>
+
+<style>
+.watermark{
+    position:fixed;
+    font-size:8px;
+    color:rgba(0,0,0,0.08);
+    pointer-events:none;
+    user-select:none;
+    z-index:-1;
+    animation:move 25s linear infinite;
+}
+
+@keyframes move{
+    0%{
+        transform:translate(0,0);
+    }
+    100%{
+        transform:translate(100vw,100vh);
+    }
+}
+
+.wm1{top:5%;left:2%;animation-delay:0s;}
+.wm2{top:15%;left:20%;animation-delay:2s;}
+.wm3{top:25%;left:40%;animation-delay:4s;}
+.wm4{top:35%;left:60%;animation-delay:6s;}
+.wm5{top:45%;left:80%;animation-delay:8s;}
+.wm6{top:55%;left:10%;animation-delay:10s;}
+.wm7{top:65%;left:30%;animation-delay:12s;}
+.wm8{top:75%;left:50%;animation-delay:14s;}
+.wm9{top:85%;left:70%;animation-delay:16s;}
+.wm10{top:95%;left:90%;animation-delay:18s;}
+</style>
+
