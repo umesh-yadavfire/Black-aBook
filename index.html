@@ -1,457 +1,493 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JEE Study Portal</title>
-
-<style>
-body{
-    font-family: Arial, sans-serif;
-    background:#f4f6f9;
-    margin:0;
-}
-header{
-    background:#1e3a8a;
-    color:white;
-    text-align:center;
-    padding:15px;
-}
-.container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:20px;
-    padding:20px;
-}
-.module{
-    background:white;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
-}
-h2{
-    color:#1e3a8a;
-}
-iframe{
-    width:100%;
-    height:300px;
-    border:none;
-    margin-top:10px;
-}
-input{
-    width:100%;
-    margin-top:10px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Study Planner - Umesh Yadav</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2d5a96 100%);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .module {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .module:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .module h2 {
+            color: #1e3a8a;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .module h3 {
+            color: #333;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        input[type="file"],
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="file"]:focus,
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+        
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        .timer {
+            font-size: 2em;
+            font-weight: bold;
+            color: #e74c3c;
+            text-align: center;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, 80px);
+            gap: 5px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .cell {
+            width: 80px;
+            height: 80px;
+            font-size: 2em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .cell:hover {
+            transform: scale(1.05);
+        }
+        
+        .playlist-item {
+            background: #f8f9fa;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #667eea;
+        }
+        
+        .playlist-item button {
+            width: auto;
+            padding: 6px 12px;
+            font-size: 0.9em;
+            margin: 0;
+            background: #e74c3c;
+        }
+        
+        .status {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin: 15px 0;
+        }
+        
+        .watermark {
+            position: fixed;
+            font-size: 12px;
+            color: rgba(0,0,0,0.05);
+            pointer-events: none;
+            user-select: none;
+            z-index: -1;
+            font-weight: bold;
+        }
+    </style>
 </head>
-
 <body>
 
 <header>
-<h1>JEE Study Dashboard</h1>
+    <h1>📚 JEE Study Planner</h1>
+    <p>Your complete study companion - Umesh Yadav</p>
 </header>
 
 <div class="container">
 
-<div class="module">
-<h2>📘 Mathematics</h2>
-<input type="file" accept=".pdf"
-onchange="loadPDF(event,'mathPdf')">
-<iframe id="mathPdf"></iframe>
-</div>
+    <!-- MATHEMATICS MODULE -->
+    <div class="module">
+        <h2>📘 Mathematics</h2>
+        <div class="form-group">
+            <label>Upload Math PDF:</label>
+            <input type="file" accept=".pdf" onchange="loadPDF(event,'mathPdf')">
+        </div>
+        <iframe id="mathPdf"></iframe>
+    </div>
 
-<div class="module">
-<h2>⚛ Physics</h2>
-<input type="file" accept=".pdf"
-onchange="loadPDF(event,'physicsPdf')">
-<iframe id="physicsPdf"></iframe>
-</div>
+    <!-- PHYSICS MODULE -->
+    <div class="module">
+        <h2>⚛ Physics</h2>
+        <div class="form-group">
+            <label>Upload Physics PDF:</label>
+            <input type="file" accept=".pdf" onchange="loadPDF(event,'physicsPdf')">
+        </div>
+        <iframe id="physicsPdf"></iframe>
+    </div>
 
-<div class="module">
-<h2>🧪 Chemistry</h2>
-<input type="file" accept=".pdf"
-onchange="loadPDF(event,'chemPdf')">
-<iframe id="chemPdf"></iframe>
-</div>
+    <!-- CHEMISTRY MODULE -->
+    <div class="module">
+        <h2>🧪 Chemistry</h2>
+        <div class="form-group">
+            <label>Upload Chemistry PDF:</label>
+            <input type="file" accept=".pdf" onchange="loadPDF(event,'chemPdf')">
+        </div>
+        <iframe id="chemPdf"></iframe>
+    </div>
+
+    <!-- TEST PORTAL MODULE -->
+    <div class="module">
+        <h2>📝 Test Portal</h2>
+        <div class="form-group">
+            <label>Select Test PDF:</label>
+            <input type="file" accept=".pdf" onchange="loadPDF(event,'testPdf')">
+        </div>
+        <div class="form-group">
+            <label>Test Duration (Minutes):</label>
+            <input type="number" id="testTime" value="180" min="1">
+        </div>
+        <button onclick="startTest()">🚀 Start Test</button>
+        <div class="timer" id="timer">00:00:00</div>
+        <iframe id="testPdf"></iframe>
+    </div>
+
+    <!-- YOUTUBE STUDY VIDEOS -->
+    <div class="module">
+        <h2>🎥 Study Videos</h2>
+        <div class="form-group">
+            <label>Paste YouTube Video Link:</label>
+            <input type="text" id="ytLink" placeholder="https://www.youtube.com/watch?v=...">
+        </div>
+        <button onclick="loadVideo()">▶ Load Video</button>
+        <iframe id="studyVideo" width="100%" height="315" allowfullscreen></iframe>
+    </div>
+
+    <!-- MOTIVATIONAL MUSIC PLAYLIST -->
+    <div class="module">
+        <h2>🎵 Motivational Playlist</h2>
+        <div class="form-group">
+            <label>Add Song:</label>
+            <input type="file" accept="audio/*" onchange="addToPlaylist(event)">
+        </div>
+        <button onclick="playAll()">▶ Play All</button>
+        <button onclick="stopAll()" style="background: #e74c3c;">⏹ Stop</button>
+        <div id="playlist"></div>
+        <audio id="musicPlayer" controls loop style="margin-top: 15px;"></audio>
+    </div>
+
+    <!-- TIC TAC TOE GAME -->
+    <div class="module">
+        <h2>🎮 Tic Tac Toe</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 15px;">Take a break and play!</p>
+        <div id="board">
+            <button class="cell" onclick="play(this)"> </button>
+            <button class="cell" onclick="play(this)"> </button>
+            <button class="cell" onclick="play(this)"> </button>
+            <button class="cell" onclick="play(this)"> </button>
+            <button class="cell" onclick="play(this)"> </button>
+            <button class="cell" onclick="play(this)"> </button>
+            <button class="cell" onclick="play(this)"> </button>
+            <button class="cell" onclick="play(this)"> </button>
+            <button class="cell" onclick="play(this)"> </button>
+        </div>
+        <div class="status" id="status">Player X Turn</div>
+        <button onclick="resetGame()">🔄 Restart Game</button>
+    </div>
 
 </div>
 
 <script>
-function loadPDF(event,id){
-    const file = event.target.files[0];
-    if(file){
-        document.getElementById(id).src =
-        URL.createObjectURL(file);
+    // PDF Loading Function
+    function loadPDF(event, id) {
+        const file = event.target.files[0];
+        if (file) {
+            const url = URL.createObjectURL(file);
+            document.getElementById(id).src = url;
+        }
     }
-}
+
+    // Test Portal Timer
+    let countdown;
+    function startTest() {
+        clearInterval(countdown);
+        let minutes = parseInt(document.getElementById("testTime").value);
+        let time = minutes * 60;
+
+        countdown = setInterval(function() {
+            let hrs = Math.floor(time / 3600);
+            let mins = Math.floor((time % 3600) / 60);
+            let secs = time % 60;
+
+            document.getElementById("timer").innerHTML =
+                String(hrs).padStart(2, '0') + ":" +
+                String(mins).padStart(2, '0') + ":" +
+                String(secs).padStart(2, '0');
+
+            if (time <= 0) {
+                clearInterval(countdown);
+                alert("⏰ Time Over! Test Finished.");
+                document.getElementById("timer").innerHTML = "TEST ENDED";
+            }
+            time--;
+        }, 1000);
+    }
+
+    // YouTube Video Loading
+    function loadVideo() {
+        let url = document.getElementById("ytLink").value;
+        let id = "";
+
+        if (url.includes("v=")) {
+            id = url.split("v=")[1].split("&")[0];
+        } else if (url.includes("youtu.be/")) {
+            id = url.split("youtu.be/")[1];
+        }
+
+        if (id) {
+            document.getElementById("studyVideo").src =
+                "https://www.youtube.com/embed/" + id + "?rel=0&modestbranding=1";
+        } else {
+            alert("Invalid YouTube link!");
+        }
+    }
+
+    // Playlist Management
+    let playlist = [];
+    function addToPlaylist(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const url = URL.createObjectURL(file);
+            playlist.push({
+                name: file.name,
+                url: url
+            });
+            updatePlaylistUI();
+            event.target.value = "";
+        }
+    }
+
+    function updatePlaylistUI() {
+        const playlistDiv = document.getElementById("playlist");
+        playlistDiv.innerHTML = "";
+
+        playlist.forEach((song, index) => {
+            const item = document.createElement("div");
+            item.className = "playlist-item";
+            item.innerHTML = `
+                <span>${index + 1}. ${song.name.substring(0, 30)}</span>
+                <button onclick="removeSong(${index})">❌ Remove</button>
+            `;
+            playlistDiv.appendChild(item);
+        });
+    }
+
+    function removeSong(index) {
+        playlist.splice(index, 1);
+        updatePlaylistUI();
+    }
+
+    function playAll() {
+        if (playlist.length > 0) {
+            document.getElementById("musicPlayer").src = playlist[0].url;
+            document.getElementById("musicPlayer").play();
+        } else {
+            alert("Please add songs to playlist first!");
+        }
+    }
+
+    function stopAll() {
+        document.getElementById("musicPlayer").pause();
+        document.getElementById("musicPlayer").currentTime = 0;
+    }
+
+    // Tic Tac Toe Game
+    let currentPlayer = "X";
+    function play(cell) {
+        if (cell.innerHTML !== "") return;
+        
+        cell.innerHTML = currentPlayer;
+        
+        if (checkWin()) {
+            document.getElementById("status").innerHTML = "🎉 Player " + currentPlayer + " Won!";
+            disableAllCells();
+            return;
+        }
+        
+        if (checkDraw()) {
+            document.getElementById("status").innerHTML = "🤝 It's a Draw!";
+            return;
+        }
+        
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
+        document.getElementById("status").innerHTML = "Player " + currentPlayer + " Turn";
+    }
+
+    function checkWin() {
+        const cells = document.querySelectorAll(".cell");
+        const winPatterns = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        for (let pattern of winPatterns) {
+            if (cells[pattern[0]].innerHTML === currentPlayer &&
+                cells[pattern[1]].innerHTML === currentPlayer &&
+                cells[pattern[2]].innerHTML === currentPlayer) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function checkDraw() {
+        const cells = document.querySelectorAll(".cell");
+        return Array.from(cells).every(cell => cell.innerHTML !== "");
+    }
+
+    function disableAllCells() {
+        const cells = document.querySelectorAll(".cell");
+        cells.forEach(cell => cell.disabled = true);
+    }
+
+    function resetGame() {
+        const cells = document.querySelectorAll(".cell");
+        cells.forEach(cell => {
+            cell.innerHTML = "";
+            cell.disabled = false;
+        });
+        currentPlayer = "X";
+        document.getElementById("status").innerHTML = "Player X Turn";
+    }
+
+    // Watermarks
+    const names = ['Umesh Yadav'];
+    function createWatermarks() {
+        for (let i = 0; i < 15; i++) {
+            const watermark = document.createElement("div");
+            watermark.className = "watermark";
+            watermark.textContent = names[0];
+            watermark.style.left = Math.random() * 100 + "%";
+            watermark.style.top = Math.random() * 100 + "%";
+            document.body.appendChild(watermark);
+        }
+    }
+    createWatermarks();
 </script>
 
 </body>
 </html>
-<!-- TEST MODULE -->
-
-<div class="module">
-<h2>📝 Test Portal</h2>
-
-<label>Select Test PDF:</label>
-<input type="file" accept=".pdf"
-onchange="loadPDF(event,'testPdf')">
-
-<br><br>
-
-<label>Test Duration (Minutes):</label>
-<input type="number" id="testTime"
-value="180" min="1">
-
-<br><br>
-
-<button onclick="startTest()">
-🚀 Start Test
-</button>
-
-<h3 id="timer">
-03:00:00
-</h3>
-
-<iframe id="testPdf"></iframe>
-</div>
-
-<script>
-
-let countdown;
-
-function startTest(){
-
-clearInterval(countdown);
-
-let minutes =
-parseInt(document.getElementById("testTime").value);
-
-let time = minutes * 60;
-
-countdown = setInterval(function(){
-
-let hrs = Math.floor(time/3600);
-let mins = Math.floor((time%3600)/60);
-let secs = time%60;
-
-document.getElementById("timer").innerHTML =
-String(hrs).padStart(2,'0') + ":" +
-String(mins).padStart(2,'0') + ":" +
-String(secs).padStart(2,'0');
-
-if(time<=0){
-clearInterval(countdown);
-
-alert("⏰ Time Over! Test Finished.");
-
-document.getElementById("timer").innerHTML =
-"TEST ENDED";
-}
-
-time--;
-
-},1000);
-
-}
-
-</script>
-<div class="module">
-<h2>🎥 Distraction Free Study Video</h2>
-
-<input type="text"
-id="ytLink"
-placeholder="Paste YouTube Video Link">
-
-<br><br>
-
-<button onclick="loadVideo()">
-▶ Load Video
-</button>
-
-<br><br>
-
-<iframe id="studyVideo"
-width="100%"
-height="315"
-allowfullscreen>
-</iframe>
-</div>
-
-<script>
-function loadVideo(){
-
-let url =
-document.getElementById("ytLink").value;
-
-let id = "";
-
-if(url.includes("v=")){
-id = url.split("v=")[1].split("&")[0];
-}
-else if(url.includes("youtu.be/")){
-id = url.split("youtu.be/")[1];
-}
-
-document.getElementById("studyVideo").src =
-"https://www.youtube.com/embed/" +
-id +
-"?rel=0&modestbranding=1";
-}
-</script>
-<div class="module">
-<h2>🎵 Motivation Music</h2>
-
-<input type="file"
-accept="audio/*"
-onchange="loadMusic(event)">
-
-<br><br>
-
-<audio id="musicPlayer" controls>
-Your browser does not support audio.
-</audio>
-
-</div>
-
-<script>
-
-function loadMusic(event){
-
-const file = event.target.files[0];
-
-if(file){
-
-const url = URL.createObjectURL(file);
-
-document.getElementById("musicPlayer").src = url;
-
-}
-
-}
-
-</script>
-<audio id="musicPlayer" controls loop>
-</audio>
-<div class="module">
-<h2>🎮 Tic Tac Toe</h2>
-
-<div id="board">
-<button class="cell" onclick="play(this)"> </button>
-<button class="cell" onclick="play(this)"> </button>
-<button class="cell" onclick="play(this)"> </button>
-
-<button class="cell" onclick="play(this)"> </button>
-<button class="cell" onclick="play(this)"> </button>
-<button class="cell" onclick="play(this)"> </button>
-
-<button class="cell" onclick="play(this)"> </button>
-<button class="cell" onclick="play(this)"> </button>
-<button class="cell" onclick="play(this)"> </button>
-</div>
-
-<h3 id="status">Player X Turn</h3>
-
-<button onclick="resetGame()">🔄 Restart</button>
-</div>
-
-<style>
-#board{
-display:grid;
-grid-template-columns:repeat(3,80px);
-gap:5px;
-justify-content:center;
-}
-
-.cell{
-width:80px;
-height:80px;
-font-size:30px;
-font-weight:bold;
-cursor:pointer;
-}
-</style>
-
-<script>
-let currentPlayer = "X";
-
-function play(cell){
-
-if(cell.innerHTML !== "") return;
-
-cell.innerHTML = currentPlayer;
-
-currentPlayer =
-currentPlayer === "X" ? "O" : "X";
-
-document.getElementById("status").innerHTML =
-"Player " + currentPlayer + " Turn";
-}
-
-function resetGame(){
-
-let cells =
-document.querySelectorAll(".cell");
-
-cells.forEach(cell => cell.innerHTML = "");
-
-currentPlayer = "X";
-
-document.getElementById("status").innerHTML =
-"Player X Turn";
-}
-</script>
-<style>
-body::before{
-    content:"Umesh Yadav";
-    position:fixed;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%) rotate(-30deg);
-    font-size:60px;
-    color:rgba(0,0,0,0.05);
-    font-weight:bold;
-    pointer-events:none;
-    z-index:-1;
-}
-</style>
-<div class="module">
-<h2>🎵 Spotify Study Playlist</h2>
-
-<input type="text" id="spotifyLink"
-placeholder="Paste Spotify Track/Playlist Link">
-
-<button onclick="addSpotify()">
-➕ Add Spotify
-</button>
-
-<div id="spotifyContainer"></div>
-</div>
-
-<script>
-function addSpotify(){
-
-let url = document.getElementById("spotifyLink").value.trim();
-
-if(!url){
-alert("Paste a Spotify link first!");
-return;
-}
-
-let embedUrl = url.replace(
-"https://open.spotify.com/",
-"https://open.spotify.com/embed/"
-);
-
-let iframe = document.createElement("iframe");
-
-iframe.src = embedUrl;
-iframe.width = "100%";
-iframe.height = "152";
-iframe.loading = "lazy";
-iframe.allow =
-"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
-
-document.getElementById("spotifyContainer")
-.appendChild(iframe);
-
-document.getElementById("spotifyLink").value = "";
-}
-</script>
-<!-- Moving Watermarks -->
-<div class="watermark wm1">Umesh Yadav</div>
-<div class="watermark wm2">Umesh Yadav</div>
-<div class="watermark wm3">Umesh Yadav</div>
-<div class="watermark wm4">Umesh Yadav</div>
-<div class="watermark wm5">Umesh Yadav</div>
-<div class="watermark wm6">Umesh Yadav</div>
-<div class="watermark wm7">Umesh Yadav</div>
-<div class="watermark wm8">Umesh Yadav</div>
-<div class="watermark wm9">Umesh Yadav</div>
-<div class="watermark wm10">Umesh Yadav</div>
-
-<style>
-.watermark{
-    position:fixed;
-    font-size:8px;
-    color:rgba(0,0,0,0.08);
-    pointer-events:none;
-    user-select:none;
-    z-index:-1;
-    animation:move 25s linear infinite;
-}
-
-@keyframes move{
-    0%{
-        transform:translate(0,0);
-    }
-    100%{
-        transform:translate(100vw,100vh);
-    }
-}
-
-.wm1{top:5%;left:2%;animation-delay:0s;}
-.wm2{top:15%;left:20%;animation-delay:2s;}
-.wm3{top:25%;left:40%;animation-delay:4s;}
-.wm4{top:35%;left:60%;animation-delay:6s;}
-.wm5{top:45%;left:80%;animation-delay:8s;}
-.wm6{top:55%;left:10%;animation-delay:10s;}
-.wm7{top:65%;left:30%;animation-delay:12s;}
-.wm8{top:75%;left:50%;animation-delay:14s;}
-.wm9{top:85%;left:70%;animation-delay:16s;}
-.wm10{top:95%;left:90%;animation-delay:18s;}
-</style>
-<div class="module">
-<h2>📘 Mathematics PDF Library</h2>
-
-<h3>PDF 1</h3>
-<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf1')">
-<iframe id="pdf1" width="100%" height="250"></iframe>
-
-<h3>PDF 2</h3>
-<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf2')">
-<iframe id="pdf2" width="100%" height="250"></iframe>
-
-<h3>PDF 3</h3>
-<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf3')">
-<iframe id="pdf3" width="100%" height="250"></iframe>
-
-<h3>PDF 4</h3>
-<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf4')">
-<iframe id="pdf4" width="100%" height="250"></iframe>
-
-<h3>PDF 5</h3>
-<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf5')">
-<iframe id="pdf5" width="100%" height="250"></iframe>
-
-<h3>PDF 6</h3>
-<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf6')">
-<iframe id="pdf6" width="100%" height="250"></iframe>
-
-<h3>PDF 7</h3>
-<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf7')">
-<iframe id="pdf7" width="100%" height="250"></iframe>
-
-<h3>PDF 8</h3>
-<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf8')">
-<iframe id="pdf8" width="100%" height="250"></iframe>
-
-<h3>PDF 9</h3>
-<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf9')">
-<iframe id="pdf9" width="100%" height="250"></iframe>
-
-<h3>PDF 10</h3>
-<input type="file" accept=".pdf" onchange="loadPDF(event,'pdf10')">
-<iframe id="pdf10" width="100%" height="250"></iframe>
-</div>
-
-<script>
-function loadPDF(event,id){
-    const file = event.target.files[0];
-    if(file){
-        document.getElementById(id).src =
-        URL.createObjectURL(file);
-    }
-}
-</script>
-
